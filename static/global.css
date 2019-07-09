@@ -1,0 +1,91 @@
+body {
+	margin: 0;
+	font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 0.5em 0;
+	font-weight: 400;
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+a {
+	color: inherit;
+}
+
+code {
+	font-family: menlo, inconsolata, monospace;
+	font-size: calc(1em - 2px);
+	color: #555;
+	/* background-color: #f0f0f0; */
+	padding: 0.2em 0.4em;
+	border-radius: 2px;
+	font-size: 18px;
+	line-height: 28px;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.container-fluid {
+	max-width: 100%;
+	width: 100%;
+}
+
+.d-flex {
+	display: flex;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.align-center {
+	align-items: center;
+}
+
+pre[class*="language-"] {
+	background-color: #000!important;
+	border: 0!important;
+	box-shadow: none!important;
+	padding: 1.5em!important;
+	border-radius: 6px;
+}
+
+.token.boolean, .token.number, .token.function {
+	color: #55b5db!important;
+}
+
+.token.punctuation {
+	color: white!important;
+	opacity: 1!important;
+}
+
+code[class*="language-"], pre[class*="language-"] {
+	color: #a074c4!important;
+	text-shadow: none!important;
+}
+
+.token.keyword, .token.property, .token.selector, .token.constant, .token.symbol, .token.builtin {
+	color: hsl(53, 72%, 63%)!important;
+}
+
+@media (min-width: 400px) {
+	body {
+		font-size: 16px;
+	}
+}
