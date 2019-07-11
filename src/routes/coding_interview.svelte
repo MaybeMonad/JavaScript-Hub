@@ -1,10 +1,4 @@
 <style>
-	.main	{
-		max-width: 800px;
-		margin: 0 auto;
-		text-align: center;
-	}
-
 	h1, figure, p {
 		text-align: center;
 		margin: 0 auto;
@@ -23,13 +17,12 @@
 
 	img {
 		width: 100%;
-		max-width: 680px;
+		max-width: 720px;
 		margin: 0 0 1em 0;
 	}
 
 	p {
 		margin: 1em auto;
-		max-width: 600px;
 	}
 
 	@media (min-width: 480px) {
@@ -43,12 +36,10 @@
 	<title>About</title>
 </svelte:head>
 
-<div class="main">
-	<h1>Keep productive!</h1>
-	<figure>
-		<img src="share.svg" alt="Share">
-		<figcaption>This is a free JavaScript learning application created by <a href="https://dezineleo.com">Dezineleo</a></figcaption>
-	</figure>
-</div>
+<h1>Stay tuned!</h1>
 
-
+<figure>
+	<img alt='JavaScript Master' src='javascript-master.svg'>
+	<figcaption>If you like this little app, plz share it to your friends!</figcaption>
+</figure>
+<p>This is a free JavaScript learning application created by <a href="https://dezineleo.com">Dezineleo</a></p>

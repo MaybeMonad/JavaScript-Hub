@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="615px" height="475px" viewBox="0 0 615 475" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>编组 3</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="画板" transform="translate(-159.000000, -214.000000)">
+            <g id="编组-3" transform="translate(159.000000, 214.000000)">
+                <rect id="矩形" fill="#000000" x="0" y="0" width="615" height="475" rx="8"></rect>
+                <g id="编组-2" opacity="0.0998651414" transform="translate(214.000000, 183.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <path d="M152,175.689672 C152,228.085425 121.141951,252 76.1808089,252 C35.5590801,252 12.0539255,231.089768 0,205.733108 L41.3449643,180.857143 C49.3005551,194.917471 56.5329104,206.814672 74.0111023,206.814672 C90.6455194,206.814672 101.252974,200.32529 101.252974,174.968629 L101.252974,3 L152,3 L152,175.689672 Z" id="路径"></path>
+                    <path d="M271.731557,252 C224.459016,252 193.870902,229.637405 179,200.301527 L220.469262,176.496183 C231.35041,194.169847 245.616803,207.274809 270.643443,207.274809 C291.680328,207.274809 305.221311,196.814885 305.221311,182.267176 C305.221311,164.954198 291.438525,158.822519 268.104508,148.603053 L255.409836,143.192748 C218.655738,127.683206 194.354508,108.085878 194.354508,66.8473282 C194.354508,28.8549618 223.491803,0 268.829918,0 C301.231557,0 324.444672,11.1812977 341.129098,40.5171756 L301.473361,65.7652672 C292.768443,50.2557252 283.338115,44.1240458 268.709016,44.1240458 C253.838115,44.1240458 244.407787,53.5019084 244.407787,65.7652672 C244.407787,80.9141221 253.838115,87.0458015 275.721311,96.5438931 L288.415984,101.954198 C331.69877,120.349237 356,139.225191 356,181.545802 C356,226.992366 319.971311,252 271.731557,252 L271.731557,252 Z" id="路径"></path>
+                </g>
+                <text id="01" font-family="Ubuntu-Bold, Ubuntu" font-size="20" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="51" y="112">01</tspan>
+                </text>
+                <g id="编组" transform="translate(94.000000, 382.000000)" fill="#FFFFFF">
+                    <text id="CONTENT" opacity="0.498697917" font-family="Ubuntu-Regular, Ubuntu" font-size="16" font-weight="normal">
+                        <tspan x="0" y="22">CONTENT</tspan>
+                    </text>
+                    <text id="180-notes" font-family="Ubuntu-Bold, Ubuntu" font-size="24" font-weight="bold">
+                        <tspan x="81" y="22">180 notes</tspan>
+                    </text>
+                </g>
+                <g id="编组复制" transform="translate(346.000000, 382.000000)" fill="#FFFFFF">
+                    <text id="QUESTIONS" opacity="0.498697917" font-family="Ubuntu-Regular, Ubuntu" font-size="16" font-weight="normal">
+                        <tspan x="0" y="22">QUESTIONS</tspan>
+                    </text>
+                    <text id="1000+" font-family="Ubuntu-Bold, Ubuntu" font-size="24" font-weight="bold">
+                        <tspan x="96" y="22">1000+</tspan>
+                    </text>
+                </g>
+                <text id="JavaScript-Master" font-family="Ubuntu-Bold, Ubuntu" font-size="72" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="94" y="148">JavaScript</tspan>
+                    <tspan x="94" y="229">Master</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

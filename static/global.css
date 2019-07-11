@@ -59,10 +59,10 @@ code {
 }
 
 pre[class*="language-"] {
-	background-color: #000!important;
-	border: 0!important;
-	box-shadow: none!important;
-	padding: 1.5em!important;
+	background-color: #000;
+	border: 0;
+	box-shadow: none;
+	padding: 1.5em;
 	border-radius: 6px;
 }
 

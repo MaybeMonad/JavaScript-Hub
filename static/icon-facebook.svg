@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>icon-facebook</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="main" transform="translate(-1524.000000, -555.000000)">
+            <g id="icon-facebook" transform="translate(1522.000000, 553.000000)">
+                <polygon id="路径" points="0 0 24 0 24 24 0 24"></polygon>
+                <path d="M12,2 C6.477,2 2,6.477 2,12 C2,16.991 5.657,21.128 10.438,21.879 L10.438,14.89 L7.898,14.89 L7.898,12 L10.438,12 L10.438,9.797 C10.438,7.291 11.93,5.907 14.215,5.907 C15.309,5.907 16.453,6.102 16.453,6.102 L16.453,8.562 L15.193,8.562 C13.95,8.562 13.563,9.333 13.563,10.124 L13.563,12 L16.336,12 L15.893,14.89 L13.563,14.89 L13.563,21.879 C18.343,21.129 22,16.99 22,12 C22,6.477 17.523,2 12,2 Z" id="路径" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

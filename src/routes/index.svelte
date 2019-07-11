@@ -3,8 +3,9 @@
 	import Normalizer from 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
 	import questionData from './data/questions';
 
-	const questions = localStorage.getItem('questions') ? JSON.parse(localStorage.getItem('questions')) : questionData;
+	const storageQuestion = localStorage.getItem('questions');
 
+	const questions = storageQuestion ? [...JSON.parse(storageQuestion), ...questionData.slice(JSON.parse(storageQuestion).length)] : questionData;
 	const statistics = localStorage.getItem('statistics') ? JSON.parse(localStorage.getItem('statistics')) : {
 		correct: [],
 		wrong: [],
@@ -12,7 +13,7 @@
 	}
 
 	let modalVisible = false;
-	let current = statistics.last === questions.length - 1 ? statistics.last : statistics.last + 1;
+	let current = statistics.last === questions.length - 1 ? statistics.last : statistics.last === 0 ? 0 : statistics.last + 1;
 	let selected = statistics.last === questions.length - 1 ? questions[statistics.last].selected : questions[statistics.last + 1].selected ? questions[statistics.last + 1].selected : undefined;
 	$: done = statistics.correct.length + statistics.wrong.length;
 	$: score = done ? parseInt((statistics.correct.length / done) * 100, 10) : 0;
@@ -20,6 +21,10 @@
 	const nw = new Normalizer({
 		'indent': 0,
 		'tabs-to-spaces': 2,
+		'remove-trailing': true,
+		'remove-indent': true,
+		'left-trim': true,
+		'right-trim': true
 	});
 	
 	$: code = Prism.highlight(nw.normalize(questions[current].code), Prism.languages.javascript, 'javascript');
@@ -62,18 +67,14 @@
 		fr.onload = function(e) {
 			const result = JSON.parse(e.target.result);
 			const formatted = JSON.stringify(result, null, 2);
+			const { dataSource: d, questions: q, statistics: s } = formatted;
+			if (d !== 'positive') return alert('Wrong JSON Scource!');
+			questions = q;
+			statistics = s;
+			handleModalVisible(false);
 		}
 		fr.readAsText(selectedfile);
-		handleModalVisible(false);
 	}
-
-	// import { onMount, beforeUpdate } from 'svelte';
-
-	// onMount(() => {
-	// });
-
-	// beforeUpdate(() => {
-	// });
 </script>
 
 <style>
@@ -85,7 +86,7 @@
 		min-height: calc(100vh - 340px);
 	}
 
-	.test-area {
+	.question-panel {
 		margin-top: -136px;
 		width: 100%;
 	}
@@ -98,8 +99,17 @@
 		padding: 48px;
 	}
 
-	.test-area pre {
+	.focus-area h3 {
+		font-weight: 700;
+	}
+
+	.question-panel pre {
 		margin-bottom: 36px;
+		background-color: #000;
+		border: 0;
+		box-shadow: none;
+		padding: 1.5em;
+		border-radius: 6px;
 	}
 
 	.score {
@@ -334,6 +344,14 @@
 		margin-left: 28px;
 	}
 
+	.social-sharing .social-media > a img {
+		width: 18px;
+	}
+
+	.social-sharing .social-media > a.share-to-twitter img {
+		width: 21px;
+	}
+
 	.modal-container {
 		position: fixed;
 		background-color: rgba(0,0,0,0.3);
@@ -383,13 +401,14 @@
 </style>
 
 <svelte:head>
-	<title>JavaScript Hub</title>
+	<title>JavaScript Hub - Product by Dezineleo.com</title>
 </svelte:head>
 
 <div class="container-fluid main">
 	<div class="container d-flex justify-between">
-		<div class="test-area">
+		<div class="question-panel">
 			<div class="focus-area">
+				<h3>{@html questions[current].question}</h3>
 				<pre>
 					<code class="language-javascript">
 						{@html code}
@@ -398,7 +417,7 @@
 				<div class="selections {questions[current].selected > -1 ? 'selected' : ''}">
 					{#each questions[current].selections as selection, index}
 						<div disabled class="selection d-flex justify-between align-center {selected === index ? 'selected' : ''} {selected === index && questions[current].selections[index].correct ? 'right' : 'wrong'}" on:click={() => handleOnSelection(selection.correct, index)}>
-							<span>{selection.des}</span>
+							<span>{@html selection.des}</span>
 							<div class="check"></div>
 						</div>
 					{/each}
@@ -408,7 +427,7 @@
 				<div class="explanation">
 					<h4>Explanation</h4>
 					{@html questions[current].explanation.html}
-					<p class="origin">Origin: <a href={questions[current].explanation.origin}>{questions[current].explanation.origin}</a></p>
+					<p class="origin">Origin: <a href={questions[current].explanation.origin} target="_blank" rel="noopener">{questions[current].explanation.origin}</a></p>
 				</div>
 			{/if}
 		</div>
@@ -434,13 +453,13 @@
 				<p>Social Media: </p>
 				<div class="social-media">
 					<a class="share-to-facebook" href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjavascript-hub.dezineleo.com" target="_blank" rel="noopener" aria-label="">
-						<img src="/Facebook.svg" alt="FaceBook">
+						<img src="/icon-facebook.svg" alt="FaceBook">
 					</a>
 					<a class="share-to-twitter" href="https://twitter.com/intent/tweet/?text=JavaScript%20Hub%20-%20Another%20free%20JavaScript%20learning%20application.&amp;url=https%3A%2F%2Fjavascript-hub.dezineleo.com" target="_blank" rel="noopener" aria-label="">
-						<img src="/Twitter.svg" alt="Twitter">
+						<img src="/icon-twitter.svg" alt="Twitter">
 					</a>
-					<a class="share-to-instagram" href="https://twitter.com/intent/tweet/?text=JavaScript%20Hub%20-%20Another%20free%20JavaScript%20learning%20application.&amp;url=https%3A%2F%2Fjavascript-hub.dezineleo.com" target="_blank" rel="noopener" aria-label="">
-						<img src="/Instagram.svg" alt="Instagram">
+					<a class="share-to-github" href="https://github.com/DezineLeo/javascript-hub/issues" target="_blank" rel="noopener" aria-label="">
+						<img src="/icon-github.svg" alt="Instagram">
 					</a>
 				</div>
 			</div>
