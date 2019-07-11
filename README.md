@@ -6,7 +6,7 @@ Live site: [JavaScript Hub](https://javascript-hub.dezineleo.com)
 
 A picture is worth a thousand words.
 
-![JavaScript Hub Main Page Preview](./javascript-hub-main-page.png)
+![JavaScript Hub Main Page Preview](https://github.com/DezineLeo/javascript-hub/blob/master/static/javascript-hub-main-page.png?raw=true)
 
 ## Coding
 
