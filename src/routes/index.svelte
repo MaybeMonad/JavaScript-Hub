@@ -2,19 +2,29 @@
 	import Prism from 'prismjs';
 	import Normalizer from 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
 	import questionData from './data/questions';
+	import { onMount } from 'svelte';
 
-	const storageQuestion = localStorage.getItem('questions');
-
-	const questions = storageQuestion ? [...JSON.parse(storageQuestion), ...questionData.slice(JSON.parse(storageQuestion).length)] : questionData;
-	const statistics = localStorage.getItem('statistics') ? JSON.parse(localStorage.getItem('statistics')) : {
-		correct: [],
-		wrong: [],
-		last: 0,
-	}
-
+	let storageQuestion;
+	let storageStatistics;
+	let questions = [];
+	let statistics = {
+				correct: [],
+				wrong: [],
+				last: 0,
+			};
+	let selected = -1;
+	let current = 0;
 	let modalVisible = false;
-	let current = statistics.last === questions.length - 1 ? statistics.last : statistics.last === 0 ? 0 : statistics.last + 1;
-	let selected = statistics.last === questions.length - 1 ? questions[statistics.last].selected : questions[statistics.last + 1].selected ? questions[statistics.last + 1].selected : undefined;
+
+	onMount(() => {
+		storageQuestion = localStorage.getItem('questions');
+		storageStatistics = localStorage.getItem('statistics');
+		questions = storageQuestion ? [...JSON.parse(storageQuestion), ...questionData.slice(JSON.parse(storageQuestion).length)] : questionData;
+		storageStatistics ? statistics = JSON.parse(storageStatistics) : undefined;
+		selected = statistics.last === questions.length - 1 ? questions[statistics.last].selected : questions[statistics.last + 1].selected ? questions[statistics.last + 1].selected : undefined;
+		current = statistics.last === questions.length - 1 ? statistics.last : statistics.last === 0 ? 0 : statistics.last + 1;
+	});
+
 	$: done = statistics.correct.length + statistics.wrong.length;
 	$: score = done ? parseInt((statistics.correct.length / done) * 100, 10) : 0;
 
@@ -27,7 +37,7 @@
 		'right-trim': true
 	});
 	
-	$: code = Prism.highlight(nw.normalize(questions[current].code), Prism.languages.javascript, 'javascript');
+	$: code = questions.length > 0 ? Prism.highlight(nw.normalize(questions[current].code), Prism.languages.javascript, 'javascript') : undefined;
 
 	const handleOnSelection = (correct, index) => {
 		questions[current].selected = selected = index;
@@ -89,6 +99,7 @@
 	.question-panel {
 		margin-top: -136px;
 		width: 100%;
+		max-width: calc(100% - 360px);
 	}
 
 	.focus-area {
@@ -235,6 +246,16 @@
 
 	.explanation .origin {
 		color: #999;
+	}
+
+	.explanation .origin a {
+		word-break: break-all;
+	}
+
+	:global(.explanation pre) {
+		background-color: #f0f0f0;
+		border-radius: 5px;
+		padding: 20px 24px;
 	}
 
 	.score {
@@ -405,66 +426,68 @@
 </svelte:head>
 
 <div class="container-fluid main">
-	<div class="container d-flex justify-between">
-		<div class="question-panel">
-			<div class="focus-area">
-				<h3>{@html questions[current].question}</h3>
-				<pre>
-					<code class="language-javascript">
-						{@html code}
-					</code>
-				</pre>
-				<div class="selections {questions[current].selected > -1 ? 'selected' : ''}">
-					{#each questions[current].selections as selection, index}
-						<div disabled class="selection d-flex justify-between align-center {selected === index ? 'selected' : ''} {selected === index && questions[current].selections[index].correct ? 'right' : 'wrong'}" on:click={() => handleOnSelection(selection.correct, index)}>
-							<span>{@html selection.des}</span>
-							<div class="check"></div>
-						</div>
-					{/each}
+	{#if questions.length > 0}
+		<div class="container d-flex justify-between">
+			<div class="question-panel">
+				<div class="focus-area">
+					<h3>{@html questions[current].question}</h3>
+					<pre>
+						<code class="language-javascript">
+							{@html code}
+						</code>
+					</pre>
+					<div class="selections {questions[current].selected > -1 ? 'selected' : ''}">
+						{#each questions[current].selections as selection, index}
+							<div disabled class="selection d-flex justify-between align-center {selected === index ? 'selected' : ''} {selected === index && questions[current].selections[index].correct ? 'right' : 'wrong'}" on:click={() => handleOnSelection(selection.correct, index)}>
+								<span>{@html selection.des}</span>
+								<div class="check"></div>
+							</div>
+						{/each}
+					</div>
+				</div>
+				{#if questions[current].selected > -1}
+					<div class="explanation">
+						<h4>Explanation</h4>
+						{@html questions[current].explanation.html}
+						<p class="origin">Origin: <a href={questions[current].explanation.origin} target="_blank" rel="noopener">{questions[current].explanation.origin}</a></p>
+					</div>
+				{/if}
+			</div>
+			<div class="sider">
+				<div class="progress">
+					<p><span>Current: </span>#{current + 1}</p>
+					<div class="progress-bar">
+						<div class="current-progress" style="width: {(statistics.correct.length + statistics.wrong.length) * 100 / questions.length}%"></div>
+					</div>
+				</div>
+				<div class="score d-flex justify-between align-center" on:click={() => handleModalVisible(true)}>
+					<div class="current-score d-flex justify-center align-center {score < 60 ? 'poor' : score > 59 & score < 80 ? 'normal' : 'good'}">{score}</div>
+					<div class="score-detail">
+						<div class="correct d-flex justify-between align-center"><span>Correct:</span> {statistics.correct.length}</div>
+						<div class="wrong d-flex justify-between align-center"><span>Wrong:</span> {statistics.wrong.length}</div>
+					</div>
+				</div>
+				<div class="process-nav d-flex justify-between align-center">
+					<button class="previous" on:click={() => handleNavClick('previous')} disabled={current === 0}>Previous</button>
+					<button class="next" on:click={() => handleNavClick('next')} disabled={current + 1 === questions.length}>Next</button>
+				</div>
+				<div class="social-sharing d-flex justify-between align-center">
+					<p>Social Media: </p>
+					<div class="social-media">
+						<a class="share-to-facebook" href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjavascript-hub.dezineleo.com" target="_blank" rel="noopener" aria-label="">
+							<img src="/icon-facebook.svg" alt="FaceBook">
+						</a>
+						<a class="share-to-twitter" href="https://twitter.com/intent/tweet/?text=JavaScript%20Hub%20-%20Another%20free%20JavaScript%20learning%20application.&amp;url=https%3A%2F%2Fjavascript-hub.dezineleo.com" target="_blank" rel="noopener" aria-label="">
+							<img src="/icon-twitter.svg" alt="Twitter">
+						</a>
+						<a class="share-to-github" href="https://github.com/DezineLeo/javascript-hub/issues" target="_blank" rel="noopener" aria-label="">
+							<img src="/icon-github.svg" alt="Instagram">
+						</a>
+					</div>
 				</div>
 			</div>
-			{#if questions[current].selected > -1}
-				<div class="explanation">
-					<h4>Explanation</h4>
-					{@html questions[current].explanation.html}
-					<p class="origin">Origin: <a href={questions[current].explanation.origin} target="_blank" rel="noopener">{questions[current].explanation.origin}</a></p>
-				</div>
-			{/if}
 		</div>
-		<div class="sider">
-			<div class="progress">
-				<p><span>Current: </span>#{current + 1}</p>
-				<div class="progress-bar">
-					<div class="current-progress" style="width: {(statistics.correct.length + statistics.wrong.length) * 100 / questions.length}%"></div>
-				</div>
-			</div>
-			<div class="score d-flex justify-between align-center" on:click={() => handleModalVisible(true)}>
-				<div class="current-score d-flex justify-center align-center {score < 60 ? 'poor' : score > 59 & score < 80 ? 'normal' : 'good'}">{score}</div>
-				<div class="score-detail">
-					<div class="correct d-flex justify-between align-center"><span>Correct:</span> {statistics.correct.length}</div>
-					<div class="wrong d-flex justify-between align-center"><span>Wrong:</span> {statistics.wrong.length}</div>
-				</div>
-			</div>
-			<div class="process-nav d-flex justify-between align-center">
-				<button class="previous" on:click={() => handleNavClick('previous')} disabled={current === 0}>Previous</button>
-				<button class="next" on:click={() => handleNavClick('next')} disabled={current + 1 === questions.length}>Next</button>
-			</div>
-			<div class="social-sharing d-flex justify-between align-center">
-				<p>Social Media: </p>
-				<div class="social-media">
-					<a class="share-to-facebook" href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjavascript-hub.dezineleo.com" target="_blank" rel="noopener" aria-label="">
-						<img src="/icon-facebook.svg" alt="FaceBook">
-					</a>
-					<a class="share-to-twitter" href="https://twitter.com/intent/tweet/?text=JavaScript%20Hub%20-%20Another%20free%20JavaScript%20learning%20application.&amp;url=https%3A%2F%2Fjavascript-hub.dezineleo.com" target="_blank" rel="noopener" aria-label="">
-						<img src="/icon-twitter.svg" alt="Twitter">
-					</a>
-					<a class="share-to-github" href="https://github.com/DezineLeo/javascript-hub/issues" target="_blank" rel="noopener" aria-label="">
-						<img src="/icon-github.svg" alt="Instagram">
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+	{/if}
 	<div class="modal-container {modalVisible ? 'visible' : ''}" on:click={() => handleModalVisible(false)}>
 		<div class="modal-body" on:click={e => e.stopPropagation()}>
 			<img src="/share.svg" alt="Share JavaScript Hub">
