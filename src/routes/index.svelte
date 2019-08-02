@@ -21,8 +21,13 @@
 		storageStatistics = localStorage.getItem('statistics');
 		questions = storageQuestion ? [...JSON.parse(storageQuestion), ...questionData.slice(JSON.parse(storageQuestion).length)] : questionData;
 		storageStatistics ? statistics = JSON.parse(storageStatistics) : undefined;
-		selected = statistics.last === questions.length - 1 ? questions[statistics.last].selected : questions[statistics.last + 1].selected ? questions[statistics.last + 1].selected : undefined;
-		current = statistics.last === questions.length - 1 ? statistics.last : statistics.last === 0 ? 0 : statistics.last + 1;
+		if (statistics.last === questions.length - 1) {
+			selected = questions[statistics.last].selected;
+			current = statistics.last;
+		} else {
+			selected = questions[statistics.last + 1].selected;
+			current = statistics.last	? statistics.last + 1 : 0;
+		}
 	});
 
 	$: done = statistics.correct.length + statistics.wrong.length;
@@ -42,9 +47,9 @@
 	const handleOnSelection = (correct, index) => {
 		questions[current].selected = selected = index;
 		questions[current].selections[index].correct ? statistics.correct = [...statistics.correct, current] : statistics.wrong = [...statistics.wrong, current];
+		statistics.last = current;
 		localStorage.setItem('questions', JSON.stringify(questions));
 		localStorage.setItem('statistics', JSON.stringify(statistics));
-		statistics.last = current;
 	}
 
 	const handleNavClick = type => {

@@ -219,13 +219,13 @@ export default [
     code: `
       var a = 10;
       function foo() {
-          console.log(a); // ??
-          let a = 20;
+        console.log(a); // ??
+        var a = 20;
       }
       
       function boo() {
-          console.log(a); // ??
-          var a = 20;
+        console.log(a); // ??
+        let a = 20;
       }
       foo();
       boo();
@@ -244,7 +244,7 @@ export default [
         correct: 0,
       },
       {
-        des: 'ReferenceError & undefined',
+        des: 'undefined & ReferenceError',
         correct: 1,
       },
     ],
@@ -278,6 +278,88 @@ export default [
         <script src="https://gist.github.com/singhArmani/b03765a95a488289c2ca890171a56e1d.js"></script>
       `,
       origin: 'https://dev.to/aman_singh/so-you-think-you-know-javascript-5c26',
+    },
+    status: 0,
+    selected: undefined,
+  },
+  {
+    question: `What's the output?`,
+    code: `
+      async function async1() {
+        console.log('1');
+        await async2();
+        console.log('2');
+      }
+
+      async function async2() {
+        console.log('3');
+      }
+
+      console.log('4');
+
+      setTimeout(function() {
+        console.log('5');
+      }, 0);
+
+      async1();
+
+      new Promise(function(resolve) {
+        console.log('6');
+        resolve();
+      }).then(function() {
+        console.log('7');
+      });
+
+      console.log('8');
+    `,
+    selections: [
+      {
+        des: '4 1 3 6 8 2 7 5',
+        correct: 1,
+      },
+      {
+        des: '4 1 3 2 6 7 8 5',
+        correct: 0,
+      },
+      {
+        des: '4 1 3 2 5 6 7 8',
+        correct: 0,
+      },
+      {
+        des: '4 5 1 3 2 6 7 8',
+        correct: 0,
+      },
+    ],
+    explanation: {
+      html: `
+        <p>The variables declared with var keywords are <a href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting" rel="noopener noreferrer">hoisted</a> in JavaScript and are assigned a value of <em>undefined</em> in the memory. But initialization happens exactly where you typed them in your code. Also, <em>var-declared</em> variables are <a href="http://2ality.com/2011/02/javascript-variable-scoping-and-its.html" rel="noopener noreferrer">function-scoped</a>, whereas <em>let</em> and <strong>const</strong> have block-scoped. So, this is how the process will look like:</p>
+        <pre><code>
+        var a = 10; // global scope
+        function foo() {
+        // Declaration of var a will be hoisted to the top of function.
+        // Something like: var a;
+
+        console.log(a); // prints undefined
+
+        // actual initialisation of value 20 only happens here
+          var a = 20; // local scope
+        }
+        </code></pre>
+        <p><em>let</em> and <em>const</em> allows you to declare variables that are limited in scope to the block, statement, or expression on which it is used. Unlike <em>var</em>, these variables are not hoisted and have a so-called <a href="http://exploringjs.com/es6/ch_variables.html#sec_temporal-dead-zone">temporal dead zone</a> (TDZ). Trying to access these variables in <em>TDZ</em> will throw a <em>ReferenceError</em> because they can only be accessed until execution reaches the declaration. Read more about <a href="http://2ality.com/2015/02/es6-scoping.html">lexical scoping</a> and <a href="http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/">Execution Context &amp; Stack</a> in JavaScript.</p>
+        <pre><code>
+        var a = 10; // global scope
+        function foo() { // enter new scope, TDZ starts
+
+        // Uninitialised binding for 'a' is created
+            console.log(a); // ReferenceError
+
+        // TDZ ends, 'a' is initialised with value of 20 here only
+            let a = 20;
+        }
+        </code></pre>
+        <script src="https://gist.github.com/singhArmani/b03765a95a488289c2ca890171a56e1d.js"></script>
+      `,
+      origin: 'https://juejin.im/post/5cbc0a9cf265da03b11f3505',
     },
     status: 0,
     selected: undefined,
