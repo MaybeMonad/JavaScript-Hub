@@ -332,35 +332,11 @@ export default [
     ],
     explanation: {
       html: `
-        <p>The variables declared with var keywords are <a href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting" rel="noopener noreferrer">hoisted</a> in JavaScript and are assigned a value of <em>undefined</em> in the memory. But initialization happens exactly where you typed them in your code. Also, <em>var-declared</em> variables are <a href="http://2ality.com/2011/02/javascript-variable-scoping-and-its.html" rel="noopener noreferrer">function-scoped</a>, whereas <em>let</em> and <strong>const</strong> have block-scoped. So, this is how the process will look like:</p>
-        <pre><code>
-        var a = 10; // global scope
-        function foo() {
-        // Declaration of var a will be hoisted to the top of function.
-        // Something like: var a;
-
-        console.log(a); // prints undefined
-
-        // actual initialisation of value 20 only happens here
-          var a = 20; // local scope
-        }
-        </code></pre>
-        <p><em>let</em> and <em>const</em> allows you to declare variables that are limited in scope to the block, statement, or expression on which it is used. Unlike <em>var</em>, these variables are not hoisted and have a so-called <a href="http://exploringjs.com/es6/ch_variables.html#sec_temporal-dead-zone">temporal dead zone</a> (TDZ). Trying to access these variables in <em>TDZ</em> will throw a <em>ReferenceError</em> because they can only be accessed until execution reaches the declaration. Read more about <a href="http://2ality.com/2015/02/es6-scoping.html">lexical scoping</a> and <a href="http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/">Execution Context &amp; Stack</a> in JavaScript.</p>
-        <pre><code>
-        var a = 10; // global scope
-        function foo() { // enter new scope, TDZ starts
-
-        // Uninitialised binding for 'a' is created
-            console.log(a); // ReferenceError
-
-        // TDZ ends, 'a' is initialised with value of 20 here only
-            let a = 20;
-        }
-        </code></pre>
-        <script src="https://gist.github.com/singhArmani/b03765a95a488289c2ca890171a56e1d.js"></script>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/8aGhZQkoFbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       `,
       origin: 'https://juejin.im/post/5cbc0a9cf265da03b11f3505',
     },
+    keywords: 'Event Loop',
     status: 0,
     selected: undefined,
   },
