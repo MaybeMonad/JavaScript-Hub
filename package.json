@@ -1,6 +1,6 @@
 {
-  "name": "JavaScriptHub",
-  "description": "Another free JavaScript learning application.",
+  "name": "javascripthub",
+  "description": "Just another free JavaScript learning application.",
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",

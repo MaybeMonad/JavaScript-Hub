@@ -1,3 +1,5 @@
+# JavaScript Hub
+
 As a self-taught web developer, I can always deliver coding stuff, even if I don't know the essence. Yes, Google it or StackOverflow it when I'm trapped. However, I could have made better stuff if I mastered more coding skills. So I've tried to dive deep into the JavaScript through courses and still in progress. I build **JavaScript Hub** to not only help JS newbies but also try to build a mind map for myself.
 
 Live site: [JavaScript Hub](https://javascript-hub.dezineleo.com)
