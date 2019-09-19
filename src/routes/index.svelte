@@ -44,9 +44,9 @@
 	
 	$: code = questions.length > 0 ? Prism.highlight(nw.normalize(questions[current].code), Prism.languages.javascript, 'javascript') : undefined;
 
-	const handleOnSelection = (correct, index) => {
+	const handleOnSelection = index => {
 		questions[current].selected = selected = index;
-		questions[current].selections[index].correct ? statistics.correct = [...statistics.correct, current] : statistics.wrong = [...statistics.wrong, current];
+		questions[current].correct === index ? statistics.correct = [...statistics.correct, current] : statistics.wrong = [...statistics.wrong, current];
 		statistics.last = current;
 		localStorage.setItem('questions', JSON.stringify(questions));
 		localStorage.setItem('statistics', JSON.stringify(statistics));
@@ -443,8 +443,8 @@
 					</pre>
 					<div class="selections {questions[current].selected > -1 ? 'selected' : ''}">
 						{#each questions[current].selections as selection, index}
-							<div disabled class="selection d-flex justify-between align-center {selected === index ? 'selected' : ''} {selected === index && questions[current].selections[index].correct ? 'right' : 'wrong'}" on:click={() => handleOnSelection(selection.correct, index)}>
-								<span>{@html selection.des}</span>
+							<div disabled class="selection d-flex justify-between align-center {selected === index ? 'selected' : ''} {selected === index && questions[current].correct === index ? 'right' : 'wrong'}" on:click={() => handleOnSelection(index)}>
+								<span>{@html selection}</span>
 								<div class="check"></div>
 							</div>
 						{/each}

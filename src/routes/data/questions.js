@@ -11,24 +11,8 @@ export default [
 
       sayHi();
     `,
-    selections: [
-      {
-        des: 'Lydia & undefined',
-        correct: 0,
-      },
-      {
-        des: 'Lydia & ReferenceError',
-        correct: 0,
-      },
-      {
-        des: 'ReferenceError & 21',
-        correct: 0,
-      },
-      {
-        des: 'undefined & ReferenceError',
-        correct: 1,
-      },
-    ],
+    selections: ['Lydia & undefined', 'Lydia & ReferenceError', 'ReferenceError & 21', 'undefined & ReferenceError'],
+    correct: 3,
     explanation: {
       html: `
         <p>Within the function, we first declare the <b>name</b> variable with the <b>var</b> keyword. This means that the variable gets hoisted (memory space is set up during the creation phase) with the default value of <b>undefined</b>, until we actually get to the line where we define the variable. We haven't defined the variable yet on the line where we try to log the <b>name</b> variable, so it still holds the value of <b>undefined</b>.</p>
@@ -42,24 +26,8 @@ export default [
   {
     question: `What's the output?`,
     code: `['1', '7', '11'].map(parseInt);`,
-    selections: [
-      {
-        des: '[1, 7, 11]',
-        correct: 0,
-      },
-      {
-        des: '[NaN, NaN, NaN]',
-        correct: 0,
-      },
-      {
-        des: '[1, NaN, 3]',
-        correct: 1,
-      },
-      {
-        des: '[1, NaN, 4]',
-        correct: 0,
-      },
-    ],
+    selections: ['[1, 7, 11]', '[NaN, NaN, NaN]', '[1, NaN, 3]', '[1, NaN, 4]'],
+    correct: 2,
     explanation: {
       html: `
         <p><code>[1, 2, 3, 4, 5].map(console.log);</code> is equivalent to <code>[1, 2, 3, 4, 5].map((val, index, array) => console.log(val, index, array));</code></p>
@@ -85,24 +53,8 @@ export default [
       console.log(shape.diameter());
       console.log(shape.perimeter());
     `,
-    selections: [
-      {
-        des: '<code>20</code> and <code>62.83185307179586</code>',
-        correct: 0,
-      },
-      {
-        des: '<code>20</code> and <code>NaN</code>',
-        correct: 1,
-      },
-      {
-        des: '<code>20</code> and <code>63</code>',
-        correct: 0,
-      },
-      {
-        des: '<code>NaN</code> and <code>63</code>',
-        correct: 0,
-      },
-    ],
+    selections: ['<code>20</code> and <code>62.83185307179586</code>', '<code>20</code> and <code>NaN</code>', '<code>20</code> and <code>63</code>', '<code>NaN</code> and <code>63</code>'],
+    correct: 1,
     explanation: {
       html: `
         <p>Note that the value of <code>diameter</code> is a regular function, whereas the value of <code>perimeter</code> is an arrow function.</p>
@@ -125,24 +77,8 @@ export default [
         setTimeout(() => console.log(i), 1);
       }
     `,
-    selections: [
-      {
-        des: '<code>0 1 2</code> & <code>0 1 2</code>',
-        correct: 0,
-      },
-      {
-        des: '<code>0 1 2</code> & <code>3 3 3</code>',
-        correct: 0,
-      },
-      {
-        des: '<code>3 3 3</code> & <code>0 1 2</code>',
-        correct: 1,
-      },
-      {
-        des: '<code>3 3 3</code> & <code>0 1 2</code>',
-        correct: 1,
-      },
-    ],
+    selections: ['<code>0 1 2</code> & <code>0 1 2</code>', '<code>0 1 2</code> & <code>3 3 3</code>', '<code>3 3 3</code> & <code>0 1 2</code>', '<code>3 3 3</code> & <code>3 3 3</code>'],
+    correct: 2,
     explanation: {
       html: `
         <p>Because of the event queue in JavaScript, the <code>setTimeout</code> callback function is called <em>after</em> the loop has been executed. Since the variable <code>i</code> in the first loop was declared using the <code>var</code> keyword, this value was global. During the loop, we incremented the value of <code>i</code> by <code>1</code> each time, using the unary operator <code>++</code>. By the time the <code>setTimeout</code> callback function was invoked, <code>i</code> was equal to <code>3</code> in the first example.</p>
@@ -185,24 +121,8 @@ export default [
         }
       };
     `,
-    selections: [
-      {
-        des: '0 0 2 2',
-        correct: 0,
-      },
-      {
-        des: '1 1 2 2',
-        correct: 0,
-      },
-      {
-        des: '0 1 2 3',
-        correct: 0,
-      },
-      {
-        des: '0 0 2 3',
-        correct: 1,
-      },
-    ],
+    selections: ['0 0 2 2', '1 1 2 2', '0 1 2 3', '0 0 2 3'],
+    correct: 3,
     explanation: {
       html: `
         <p>1. 第一次和第二次都是在 react 自身生命周期内，触发时 isBatchingUpdates 为 true，所以并不会直接执行更新 state，而是加入了 dirtyComponents，所以打印时获取的都是更新前的状态 0。</p>
@@ -230,24 +150,8 @@ export default [
       foo();
       boo();
     `,
-    selections: [
-      {
-        des: '10 & 20',
-        correct: 0,
-      },
-      {
-        des: '10 & 10',
-        correct: 0,
-      },
-      {
-        des: 'undefined & 20',
-        correct: 0,
-      },
-      {
-        des: 'undefined & ReferenceError',
-        correct: 1,
-      },
-    ],
+    selections: ['10 & 20', '10 & 10', 'undefined & 20', 'undefined & ReferenceError'],
+    correct: 3,
     explanation: {
       html: `
         <p>The variables declared with var keywords are <a href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting" rel="noopener noreferrer">hoisted</a> in JavaScript and are assigned a value of <em>undefined</em> in the memory. But initialization happens exactly where you typed them in your code. Also, <em>var-declared</em> variables are <a href="http://2ality.com/2011/02/javascript-variable-scoping-and-its.html" rel="noopener noreferrer">function-scoped</a>, whereas <em>let</em> and <strong>const</strong> have block-scoped. So, this is how the process will look like:</p>
@@ -312,24 +216,8 @@ export default [
 
       console.log('8');
     `,
-    selections: [
-      {
-        des: '4 1 3 6 8 2 7 5',
-        correct: 1,
-      },
-      {
-        des: '4 1 3 2 6 7 8 5',
-        correct: 0,
-      },
-      {
-        des: '4 1 3 2 5 6 7 8',
-        correct: 0,
-      },
-      {
-        des: '4 5 1 3 2 6 7 8',
-        correct: 0,
-      },
-    ],
+    selections: ['4 1 3 6 8 2 7 5', '4 1 3 2 6 7 8 5', '4 1 3 2 5 6 7 8', '4 5 1 3 2 6 7 8'],
+    correct: 0,
     explanation: {
       html: `
         <iframe width="560" height="315" src="https://www.youtube.com/embed/8aGhZQkoFbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -337,6 +225,91 @@ export default [
       origin: 'https://juejin.im/post/5cbc0a9cf265da03b11f3505',
     },
     keywords: 'Event Loop',
+    status: 0,
+    selected: undefined,
+  },
+  {
+    question: `What's the output?`,
+    code: `
+      '💩'.length;
+    `,
+    selections: ['undefined', '1', '2', 'Error'],
+    correct: 2,
+    explanation: {
+      html: `
+        String.prototype.length returns the number of bytes rather than the number of characters. Unicode characters like emoji, require two bytes.
+      `,
+      origin: 'https://frontendmasters.com/courses/debugging-javascript/common-javascript-quirks/',
+    },
+    keywords: ['String.prototype.length'],
+    status: 0,
+    selected: undefined,
+  },
+  {
+    question: `What's the output?`,
+    code: `
+      0.1 + 0.2
+    `,
+    selections: ['0.3', '0.2999999999997', '0.3000000000004', '\'0.3\''],
+    correct: 2,
+    explanation: {
+      html: `
+        Go checkout <a href="https://0.30000000000000004.com" target="_blank">0.30000000000000004</a>
+      `,
+      origin: 'https://frontendmasters.com/courses/debugging-javascript/common-javascript-quirks/',
+    },
+    keywords: ['floating point', '0.30000000000000004'],
+    status: 0,
+    selected: undefined,
+  },
+  {
+    question: `What's the output?`,
+    code: `
+      new Date(2019, 5, 31);
+    `,
+    selections: ['2019 July 1', '2019 Jun 31', '2019 May 31', '2020 May 31'],
+    correct: 0,
+    explanation: {
+      html: `
+        Months are zero based in Date. This specifies June 31, which overflows to July 1.
+      `,
+      origin: 'https://frontendmasters.com/courses/debugging-javascript/common-javascript-quirks/',
+    },
+    keywords: ['date'],
+    status: 0,
+    selected: undefined,
+  },
+  {
+    question: `What's the output?`,
+    code: `
+      new Array(0, 1, Array(2));
+    `,
+    selections: ['[0, 1, [2]]', '[0, 1, 2]', '[0, 1, [object Array]]', '[0, 1, [undefined, undefined]]'],
+    correct: 3,
+    explanation: {
+      html: `
+        Instantiating an Array with multiple arguments creates an Array from those values. However, a single argument only specifies the length.
+      `,
+      origin: 'https://frontendmasters.com/courses/debugging-javascript/common-javascript-quirks/',
+    },
+    keywords: ['Array'],
+    status: 0,
+    selected: undefined,
+  },
+  {
+    question: `What's the output?`,
+    code: `
+      [10, 5, 1].sort();
+    `,
+    selections: ['[1, 5, 10]', '[10, 5, 1]', '[1, 10, 5]', '[5, 10, 1]'],
+    correct: 2,
+    explanation: {
+      html: `
+        Array.prototype.sort's default comparator assumes String operation. All values are coerced and compared as Strings.
+      `,
+      origin: 'https://frontendmasters.com/courses/debugging-javascript/common-javascript-quirks/',
+    },
+    keywords: ['Array'],
     status: 0,
     selected: undefined,
   },
