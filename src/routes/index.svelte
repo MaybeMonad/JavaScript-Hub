@@ -25,7 +25,7 @@
 			selected = questions[statistics.last].selected;
 			current = statistics.last;
 		} else {
-			selected = questions[statistics.last + 1].selected;
+			selected = questions[statistics.last ? (statistics.last + 1) : statistics.last].selected;
 			current = statistics.last	? statistics.last + 1 : 0;
 		}
 	});
